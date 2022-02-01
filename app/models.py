@@ -4,7 +4,7 @@ class news_source:
     '''
     def __init__(self, id, name):
         self.id = id
-        self.
+        self.name = name
 
 class news_article:
     '''
