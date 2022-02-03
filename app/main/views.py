@@ -1,15 +1,27 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template,request,redirect,url_for
 from . import main
-from ..requests import get news
-from app import app
+from ..request import get_sources,get_source
 
-#views
-@ main.route('/')
-def index():
-    '''
-    view root page function that returns the index page and its data
-    '''
-    news = get_news()
-    title = 'MAZ NEWS'
-    return render_template('index.html', title = title )
+
+@main.route('/')
+def News():
+  '''
+  returns News page and data
+  '''
+
+  #Getting gen news
+  general_news = get_sources('general')
+  #Getting sports news
+  sports_news = get_sources('sports')
+  #Getting entertainment news
+  entertainment_news = get_sources ('entertainment')
+  
+  return render_template('index.html',general =general_news,sports= sports_news,entertainment=entertainment_news)
+
+@main.route('/Articles/<id>')
+def Articles(id):
     
+    article = get_source(id)
+    # print(len(article))
+    
+    return render_template('articles.html', article =article)
